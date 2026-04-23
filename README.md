@@ -4,6 +4,45 @@ A forensic-grade RAG (Retrieval-Augmented Generation) system designed for deep f
 
 ---
 
+## 🏗️ System Architecture Design
+
+```mermaid
+graph LR
+    subgraph "User Tier"
+        UI[Streamlit Dashboard]
+    end
+
+    subgraph "Logic Tier (Orchestrator)"
+        ORCH[Audit Orchestrator]
+        LOAD[Multi-Modal Loader]
+        SPLIT[Recursive Splitter]
+    end
+
+    subgraph "AI & Intelligence Tier"
+        GEM_LLM[Gemini 1.5 Flash <br/><i>(Reasoning & CoVe)</i>]
+        GEM_EMB[Gemini Embedding <br/><i>(Vectorization)</i>]
+        RAGAS[RAGAS Evaluator <br/><i>(Judicial Scoring)</i>]
+    end
+
+    subgraph "Data Tier (Hybrid)"
+        CHROMA[(ChromaDB <br/><i>Local Storage</i>)]
+        AZURE[(Azure AI Search <br/><i>Cloud Hybrid</i>)]
+    end
+
+    %% Relationships
+    UI <--> ORCH
+    ORCH --> LOAD
+    LOAD --> SPLIT
+    ORCH <--> GEM_EMB
+    ORCH <--> GEM_LLM
+    GEM_LLM <--> RAGAS
+    
+    ORCH <--> CHROMA
+    ORCH <--> AZURE
+```
+
+---
+
 ## 🗺️ End-to-End Forensic Workflow
 
 ```mermaid
