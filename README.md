@@ -9,24 +9,24 @@ A forensic-grade RAG (Retrieval-Augmented Generation) system designed for deep f
 ```mermaid
 graph LR
     subgraph "User Tier"
-        UI[Streamlit Dashboard]
+        UI["Streamlit Dashboard"]
     end
 
     subgraph "Logic Tier (Orchestrator)"
-        ORCH[Audit Orchestrator]
-        LOAD[Multi-Modal Loader]
-        SPLIT[Recursive Splitter]
+        ORCH["Audit Orchestrator"]
+        LOAD["Multi-Modal Loader"]
+        SPLIT["Recursive Splitter"]
     end
 
     subgraph "AI & Intelligence Tier"
-        GEM_LLM[Gemini 1.5 Flash <br/><i>(Reasoning & CoVe)</i>]
-        GEM_EMB[Gemini Embedding <br/><i>(Vectorization)</i>]
-        RAGAS[RAGAS Evaluator <br/><i>(Judicial Scoring)</i>]
+        GEM_LLM["Gemini 1.5 Flash <br/><i>(Reasoning & CoVe)</i>"]
+        GEM_EMB["Gemini Embedding <br/><i>(Vectorization)</i>"]
+        RAGAS["RAGAS Evaluator <br/><i>(Judicial Scoring)</i>"]
     end
 
     subgraph "Data Tier (Hybrid)"
-        CHROMA[(ChromaDB <br/><i>Local Storage</i>)]
-        AZURE[(Azure AI Search <br/><i>Cloud Hybrid</i>)]
+        CHROMA[("ChromaDB <br/><i>Local Storage</i>")]
+        AZURE[("Azure AI Search <br/><i>Cloud Hybrid</i>")]
     end
 
     %% Relationships
