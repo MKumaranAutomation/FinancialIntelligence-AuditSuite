@@ -4,6 +4,59 @@ A forensic-grade RAG (Retrieval-Augmented Generation) system designed for deep f
 
 ---
 
+## 🏛️ Strategic System Design (Enterprise View)
+
+```mermaid
+flowchart TD
+    subgraph UI ["<b>User Interface Layer</b>"]
+        direction LR
+        UQ["User Audit Query"]
+        RTU["Verified Audit Report"]
+    end
+
+    subgraph LLM_ENGINE ["<b>Forensic Analytical Engine</b>"]
+        direction TB
+        EX["Context Extraction"]
+        RAG["Forensic RAG Loop"]
+        SUCCESS{Evidence <br/>Found?}
+        GUARD["CoVe Verification Guardrail"]
+        GOOD{Accuracy <br/>Verified?}
+        JUDGE["Judicial AI (RAGAS)"]
+    end
+
+    subgraph DATA ["<b>Evidence & Meta Data</b>"]
+        direction TB
+        CC["Document Context"]
+        KB[("Forensic Vault <br/>(Chroma / Azure)")]
+    end
+
+    subgraph FEEDBACK ["<b>Verification & Improvements</b>"]
+        direction LR
+        REV["Human Auditor Review"]
+        ENG["Forensic Pattern Learning"]
+    end
+
+    %% Flow Relationships
+    UQ --> EX
+    CC --> EX
+    EX --> RAG
+    KB <--> RAG
+    RAG --> SUCCESS
+    
+    SUCCESS -- Yes --> GUARD
+    SUCCESS -- No --> REV
+    
+    GUARD --> GOOD
+    GOOD -- Yes --> RTU
+    GOOD -- No --> REV
+    
+    RTU --> JUDGE
+    JUDGE --> ENG
+    ENG --> KB
+```
+
+---
+
 ## 🏗️ System Architecture Design
 
 ```mermaid
