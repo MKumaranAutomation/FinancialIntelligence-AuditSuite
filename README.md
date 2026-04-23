@@ -14,12 +14,12 @@ graph TD
         B -- Excel/CSV --> D[Pandas Structured Loading]
         C --> E[Recursive Text Chunking]
         D --> E
-        E --> F[Gemini Embedding Engine]
+        E --> F[Gemini Embedding Engine <br/><i>(gemini-embedding-001)</i>]
         F --> G[(Forensic Vault: Chroma / Azure)]
     end
 
     subgraph "Phase 2: Hybrid Retrieval"
-        H[User Audit Query] --> I[Gemini Query Vectorization]
+        H[User Audit Query] --> I[Gemini Query Vectorization <br/><i>(gemini-embedding-001)</i>]
         I --> J{Search Mode?}
         J -- Local --> K[Vector Similarity Search]
         J -- Azure --> L[Hybrid Keyword + Vector Search]
@@ -29,14 +29,14 @@ graph TD
     end
 
     subgraph "Phase 3: Max-Precision Analysis"
-        N --> O[Multi-Pass Verification Loop]
+        N --> O[Multi-Pass Verification Loop <br/><i>(Gemini 1.5 Flash)</i>]
         O --> P[Internal Data Extraction]
         P --> Q[Source-Cross-Reconciliation]
         Q --> R[Final Verified Report]
     end
 
     subgraph "Phase 4: Quality Assurance"
-        R --> S[RAGAS Evaluation Engine]
+        R --> S[RAGAS Evaluation Engine <br/><i>(Gemini 1.5 Flash Judge)</i>]
         S --> T[Faithfulness & Relevance Scores]
         T --> U[Final Audit Dashboard]
     end
