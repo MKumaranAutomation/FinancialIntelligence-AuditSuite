@@ -4,6 +4,33 @@ A forensic-grade RAG (Retrieval-Augmented Generation) system designed for deep f
 
 ---
 
+## 🚀 Simplified Forensic Audit Flow
+
+```mermaid
+graph LR
+    USER((User)) -- "1" --> PC[Streamlit Console]
+    PC -- "2" --> RET[Audit Orchestrator]
+    RET -- "3" --> DB[(Evidence Vault)]
+    DB -- "4" --> RET
+    RET -- "5" --> LLM{Gemini 1.5 Flash}
+    LLM -- "6" --> RET
+    RET -- "7" --> PC
+```
+
+### 📁 Data Flow Breakdown
+
+| Step | Direction | Component Path | Explanation |
+| :--- | :--- | :--- | :--- |
+| **1** | **Inflow** | User → Console | The user submits a financial query or audit request via the UI. |
+| **2** | **Inflow** | Console → Orchestrator | The UI captures the request and triggers the backend analytical pipeline. |
+| **3** | **Outflow** | Orchestrator → Vault | The system converts your query into a "meaning" code and searches the database. |
+| **4** | **Inflow** | Vault → Orchestrator | The most relevant evidence snippets are retrieved from the stored documents. |
+| **5** | **Outflow** | Orchestrator → LLM | The raw query + retrieved evidence are combined into a high-fidelity audit prompt. |
+| **6** | **Inflow** | LLM → Orchestrator | The AI performs a multi-pass verification and returns a reconciled forensic report. |
+| **7** | **Outflow** | Orchestrator → Console | The final verified answer is delivered to the dashboard for the user to review. |
+
+---
+
 ## 🏛️ Strategic System Design (Enterprise View)
 
 ```mermaid
