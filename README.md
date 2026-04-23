@@ -8,29 +8,38 @@ A forensic-grade RAG (Retrieval-Augmented Generation) system designed for deep f
 
 ```mermaid
 graph LR
-    USER((👤 User)) -- "1. Prompt" --> PC[💻 Streamlit Console]
-    PC -- "2. Trigger" --> RET["⚙️ <b>Audit Orchestrator</b><br/><i>(Central Command)</i>"]
+    USER((👤 User)) -- "1" --> PC[💻 Console]
+    PC -- "2" --> RET["⚙️ Orchestrator"]
+    RET -- "3" --> DB[(🗄️ Vault)]
+    DB -- "4" --> RET
     
-    RET -- "3. Semantic Search" --> DB[(🗄️ Evidence Vault)]
-    DB -- "4. Relevant Docs" --> RET
+    subgraph FUSION ["Phase: Context Fusion"]
+        RET -- "5" --> COMB["📝 Combine Prompt + <br/>Evidence Snippets"]
+    end
     
-    RET -- "5. Prompt + Context" --> LLM{🧠 Gemini 1.5 Flash}
-    LLM -- "6. Forensic Report" --> RET
+    COMB -- "6" --> LLM{🧠 Gemini LLM}
+    LLM -- "7" --> RET
     
-    RET -- "7. Verified Answer" --> PC
+    subgraph EVAL ["Phase: QA-RAGAS"]
+        RET -- "8" --> RAGAS["⚖️ Integrity Check <br/><i>(Faithfulness Score)</i>"]
+    end
+    
+    RAGAS -- "9" --> PC
 ```
 
 ### 📁 Data Flow Breakdown
 
 | Step | Direction | Component Path | Detailed Explanation |
 | :--- | :--- | :--- | :--- |
-| **1** | **Inflow** | User → Console | The user submits a financial query or audit request via the UI. |
-| **2** | **Inflow** | Console → Orchestrator | **Orchestrator Role**: Receives the raw request, initiates the logic flow, and prepares the query for semantic vectorization. |
-| **3** | **Outflow** | Orchestrator → Vault | **Orchestrator Role**: Generates the search vector and executes the lookup in the database (Chroma/Azure). |
-| **4** | **Inflow** | Vault → Orchestrator | The most relevant evidence snippets are retrieved and returned to the command center. |
-| **5** | **Outflow** | Orchestrator → LLM | **Orchestrator Role**: Bundles the raw query + retrieved evidence into a structured "Audit Prompt" for the AI. |
-| **6** | **Inflow** | LLM → Orchestrator | The AI performs a multi-pass forensic verification and returns the final reconciled report. |
-| **7** | **Outflow** | Orchestrator → Console | The final verified answer is delivered back to the dashboard for user review. |
+| **1** | **Inflow** | User → Console | User submits a financial audit query. |
+| **2** | **Inflow** | Console → Orchestrator | The request is captured and the analytical pipeline starts. |
+| **3** | **Outflow** | Orchestrator → Vault | Semantic search for evidence across all documents. |
+| **4** | **Inflow** | Vault → Orchestrator | The most relevant evidence "chunks" are retrieved. |
+| **5** | **FUSION** | Orchestrator → Fusion | **Context Fusion**: The system mathematically combines your query with the retrieved evidence snippets. |
+| **6** | **Outflow** | Fusion → LLM | The "Augmented Prompt" is sent to Gemini for forensic analysis. |
+| **7** | **Inflow** | LLM → Orchestrator | Gemini returns a reconciled forensic report with citations. |
+| **8** | **QA-RAGAS** | Orchestrator → RAGAS | **Independent Audit**: RAGAS evaluates the report for accuracy and relevance. |
+| **9** | **Outflow** | RAGAS → Console | The final verified answer + Quality Scores are displayed to the user. |
 
 ---
 
