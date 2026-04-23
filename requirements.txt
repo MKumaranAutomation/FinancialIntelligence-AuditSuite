@@ -1,0 +1,19 @@
+google-generativeai
+chromadb
+pdfplumber
+PyPDF2
+pdf2image
+Pillow
+pandas
+openpyxl
+streamlit
+google-generativeai
+openai
+python-dotenv
+pytesseract
+pydantic
+llama-index
+langchain-text-splitters
+pymupdf
+ragas
+# Using LlamaIndex for advanced RAG orchestration
